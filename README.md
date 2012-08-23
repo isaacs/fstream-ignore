@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/isaacs/fstream-ignore.png)](http://travis-ci.org/isaacs/fstream-ignore)
 # fstream-ignore
 
 A fstream DirReader that filters out files that match globs in `.ignore`
