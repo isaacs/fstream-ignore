@@ -31,6 +31,9 @@ function IgnoreReader (props) {
   this.ignoreFiles = props.ignoreFiles
 
   this.ignoreRules = null
+  if (Array.isArray(props.ignoreRules)) {
+    this.addIgnoreRules(props.ignoreRules, "custom-rules")
+  }
 
   // ensure that .ignore files always show up at the top of the list
   // that way, they can be read before proceeding to handle other
