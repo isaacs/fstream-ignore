@@ -20,3 +20,18 @@ Ignore({ path: __dirname
 
 This will tar up the files in __dirname into `foo.tar`, ignoring
 anything matched by the globs in any .iginore or .gitignore file.
+
+## Global ignore
+
+It's also possible to specify a "global" ignore file that doesn't have
+to be in the traversed tree, akin to the global gitignore file:
+
+```javascript
+Ignore({ path: __dirname
+       , ignoreFiles: [".ignore", ".gitignore"]
+       , globalIgnoreFile: "/home/user/.gitignore"
+       })
+```
+
+The rules from that file (if it's present) will be added before any
+other rules.

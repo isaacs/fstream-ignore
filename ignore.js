@@ -27,6 +27,8 @@ function IgnoreReader (props) {
   props.type = "Directory"
   props.Directory = true
 
+  this.globalIgnoreFile = props.globalIgnoreFile
+
   if (!props.ignoreFiles) props.ignoreFiles = [".ignore"]
   this.ignoreFiles = props.ignoreFiles
 
@@ -47,7 +49,7 @@ function IgnoreReader (props) {
 
     var hasIg = this.entries.some(this.isIgnoreFile, this)
 
-    if (!hasIg) return this.filterEntries()
+    if (!this.globalIgnoreFile && !hasIg) return this.filterEntries()
 
     this.addIgnoreFiles()
   })
@@ -78,7 +80,15 @@ IgnoreReader.prototype.addIgnoreFiles = function () {
   this._ignoreFilesAdded = true
 
   var newIg = this.entries.filter(this.isIgnoreFile, this)
-  , count = newIg.length
+
+  if (this.globalIgnoreFile) {
+    // This property will be present only in the root object, so there's
+    // no need to guard against adding the file multiple times.
+    // The global ignore file is added at the beginning of the list.
+    newIg = [this.globalIgnoreFile].concat(newIg)
+  }
+
+  var count = newIg.length
   , errState = null
 
   if (!count) return
