@@ -4,7 +4,7 @@ var IgnoreFile = require("../")
 
 // set the ignores just for this test
 var c = require("./common.js")
-c.ignores({ ".ignore": ["*", "!a/b/c/.abc", "!/c/b/a/cba"] })
+c.ignores({ ".ignore": ["*", "!a/b/c/.abc"] })
 
 // the only files we expect to see
 var expected =
@@ -22,7 +22,8 @@ require("tap").test("basic ignore rules", function (t) {
   t.pass("start")
 
   IgnoreFile({ path: __dirname + "/fixtures"
-             , ignoreFiles: [".ignore"] })
+             , ignoreFiles: [".ignore"]
+             , ignoreRules: ["!/c/b/a/cba"] })
     .on("ignoreFile", function (e) {
       console.error("ignore file!", e)
     })
